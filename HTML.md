@@ -307,3 +307,84 @@ name1=value1&name2=value2
 - 宽度默认由内容决定
 - 元素间默认有间距
 - 支持宽高、外边距、内边距的所有样式的设置
+
+### 6.浏览器内核
+
+主要分成两部分：***渲染引擎(layout engineer或Rendering Engine)***和***JS引擎***。
+渲染引擎：负责取得网页的内容（HTML、XML、图像等等）、整理讯息（例如加入CSS等），以及计算网页的显示方式，然后会输出至显示器或打印机。浏览器的内核的不同对于网页的语法解释会有不同，渲染的效果也不相同。
+
+JS引擎则：解析和执行javascript来实现网页的动态效果。
+
+**最开始渲染引擎和JS引擎并没有区分的很明确，后来JS引擎越来越独立，内核就倾向于只指渲染引擎。**
+
+#### 常见的浏览器内核有哪些？
+```
+Trident内核：IE,MaxThon,TT,The World,360,搜狗浏览器等。[又称MSHTML]
+Gecko内核：Netscape6及以上版本，FF,MozillaSuite/SeaMonkey等
+Presto内核：Opera7及以上。      [Opera内核原为：Presto，现为：Blink;]
+Webkit内核：Safari,Chrome等。   [ Chrome的：Blink（WebKit的分支）]
+```
+
+### 7.HTML5
+
+#### (1).新增的元素
+
+HTML5 现在已经不是 SGML 的子集，主要是关于图像，位置，存储，多任务等功能的增加。
+> 绘画 canvas;
+> 用于媒介回放的 video 和 audio 元素;
+> 本地离线存储 localStorage 长期存储数据，浏览器关闭后数据不丢失;
+> sessionStorage 的数据在浏览器关闭后自动删除;
+> 语意化更好的内容元素，比如 article、footer、header、nav、section;
+> 表单控件，calendar、date、time、email、url、search;
+> 新的技术webworker, websocket, Geolocation;
+
+#### (2).移除的元素：
+
+> 纯表现的元素：basefont，big，center，font, s，strike，tt，u;
+> 对可用性产生负面影响的元素：frame，frameset，noframes；
+
+#### (3).离线存储
+
+在用户没有与因特网连接时，可以正常访问站点或应用，在用户与因特网连接时，更新用户机器上的缓存文件。
+原理：HTML5的离线存储是基于一个新建的.appcache文件的缓存机制(不是存储技术)，通过这个文件上的解析清单离线存储资源，这些资源就会像cookie一样被存储了下来。之后当网络在处于离线状态下时，浏览器会通过被离线存储的数据进行页面展示。
+
+如何使用：
+①、页面头部像下面一样加入一个manifest的属性；
+
+```javascript
+<!DOCTYPE HTML>
+<html manifest = "cache.manifest">
+...
+</html>
+```
+
+②、在cache.manifest文件的编写离线存储的资源；
+
+```javascript
+CACHE MANIFEST
+#v0.11
+CACHE:
+js/app.js
+css/style.css
+NETWORK:
+resourse/logo.png
+FALLBACK:
+/ /offline.html
+```
+③、在离线状态时，操作window.applicationCache进行需求实现。
+
+#### 补充：cookies，sessionStorage 和 localStorage 的区别
+
+cookie是网站为了标示用户身份而储存在用户本地终端（Client Side）上的数据（通常经过加密）。
+cookie数据始终在同源的http请求中携带（即使不需要），记会在浏览器和服务器间来回传递。
+sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存。
+
+**存储大小：**
+    cookie数据大小不能超过4k。
+    sessionStorage和localStorage 虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大。
+
+**有期时间：**
+    localStorage    存储持久数据，浏览器关闭后数据不丢失除非主动删除数据；
+    sessionStorage  数据在当前浏览器窗口关闭后自动删除。
+    cookie          设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭
+

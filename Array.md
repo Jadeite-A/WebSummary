@@ -60,4 +60,26 @@ class MyArray extends Array {
 &#8195;可选参数，执行回调函数 `mapFn` 时 `this` 对象。     
 ##### 返回值     
 &#8195;一个新的数组实例       
-#### 
+#### 示例    
+从 `String` 生成数组     
+```` JavaScript
+Array.from('foo');
+// [ "f", "o", "o" ]
+````    
+从 `Set` 生成数组    
+```` JavaScript
+const set = new Set(['foo', 'bar', 'baz', 'foo']);
+Array.from(set);
+// [ "foo", "bar", "baz" ]
+````      
+从类数组对象（arguments）生成数组     
+```` JavaScript
+function f() {
+  return Array.from(arguments);
+}   
+
+f(1, 2, 3);   
+
+// [ 1, 2, 3 ]   
+```` 
+     

@@ -82,4 +82,57 @@ f(1, 2, 3);
 
 // [ 1, 2, 3 ]   
 ```` 
-     
+### **Array.isArray()**：用来判断某个变量是否是一个数组对象      
+#### 示例
+```` JavaScript
+Array.isArray(Array.prototype);
+// true
+Array.isArray(true);
+// false
+````
+##### `instanceof` 和 `isArray`
+当检测Array实例时, `Array.isArray` 优于 `instanceof`,因为Array.isArray能检测`iframes`.
+```` JavaScript
+var iframe = document.createElement('iframe');
+document.body.appendChild(iframe);
+xArray = window.frames[window.frames.length-1].Array;
+var arr = new xArray(1,2,3); // [1,2,3]
+
+Array.isArray(arr);  // true
+arr instanceof Array; // false
+````
+#### 兼容性   
+假如不存在 `Array.isArray()`，则在其他代码之前运行下面的代码将创建该方法。
+```` JavaScript
+if (!Array.isArray) {
+  Array.isArray = function(arg) {
+    return Object.prototype.toString.call(arg) === '[object Array]';
+  };
+}
+````
+### **Array.of()**：根据一组参数来创建新的数组实例，支持任意的参数数量和类型   
+##### **`Array.of()`** 和 **`Array`** 构造函数
+&#8195;他们之间的区别在于处理整数参数：**`Array.of(7)`** 创建一个具有单个元素 7 的数组，而 **`Array(7)`** 创建一个长度为7的空数组（**注意：** 这是指一个有7个空位(empty)的数组，而不是由7个`undefined`组成的数组）。
+
+```` JavaScript
+Array.of(7);       // [7]
+Array.of(1, 2, 3); // [1, 2, 3]
+
+Array(7);          // [ , , , , , , ]
+Array(1, 2, 3);    // [1, 2, 3]
+````
+#### 示例
+```` JavaScript
+Array.of(undefined); // [undefined]
+Array.of('',''); // ['', '']
+Array.of(null,null); // [null, null]
+````
+#### 兼容旧环境    
+如果原生不支持的话，在其他代码之前执行以下代码会创建 `Array.of()` 。
+```` JavaScript
+if (!Array.of) {
+  Array.of = function() {
+    return Array.prototype.slice.call(arguments);
+  };
+}
+````

@@ -136,3 +136,14 @@ if (!Array.of) {
   };
 }
 ````
+## 实例属性    
+### `Array.prototype.length`
+**`length`** 是Array的实例属性。返回或设置一个数组中的元素个数。该值是一个 0 到 2<sup>32</sup>-1 的整数，并且总是大于数组最高项的下标。   
+
+#### Array.length 属性的属性特性：        
+1. **writable** 默认值：`true` 如果设置为`false`，该属性值将不能被修改       
+2. **enumerable** 默认值：`false` 如果设置为`true` ，属性可以通过迭代器`for`或`for...in`进行迭代       
+3. **configurable** 默认值：`false` 如果设置为`false`，删除或更改任何属性都将会失败        
+
+### `Array.prototype[@@unscopables]`    
+Symbol 属性 **`@@unscopable`** 包含了所有 ES2015 (ES6) 中新定义的、且并未被更早的 ECMAScript 标准收纳的属性名。这些属性被排除在由 [with](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/with) 语句绑定的环境中。
